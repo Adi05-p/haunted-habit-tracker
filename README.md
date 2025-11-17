@@ -136,8 +136,8 @@ Simply open:
 
 index.html
 
-
 No installation required.
 
 🎃 Happy Haunting & Habit Building! 👻🔥
+
 
