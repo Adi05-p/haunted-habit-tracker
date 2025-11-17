@@ -1,0 +1,611 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    background-image: 
+        radial-gradient(circle at 20% 50%, var(--gradient-bg-1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, var(--gradient-bg-2) 0%, transparent 50%);
+    transition: background 0.5s ease, color 0.5s ease;
+}
+
+.container {
+    max-width: 600px;
+    width: 100%;
+    position: relative;
+    z-index: 10;
+}
+
+.title {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    text-shadow: 
+        0 0 10px var(--color-primary),
+        0 0 20px var(--color-primary),
+        0 0 30px var(--color-primary);
+    animation: flicker 3s infinite alternate;
+    transition: text-shadow 0.5s ease;
+}
+
+@keyframes flicker {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        text-shadow: 
+            0 0 10px var(--color-primary),
+            0 0 20px var(--color-primary),
+            0 0 30px var(--color-primary);
+    }
+    20%, 24%, 55% {
+        text-shadow: none;
+    }
+}
+
+.habit-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+#habitInput {
+    flex: 1;
+    padding: 15px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+#habitInput:focus {
+    border-color: var(--border-secondary);
+    box-shadow: 
+        0 0 10px var(--color-secondary),
+        0 0 20px var(--shadow-secondary);
+}
+
+#habitInput::placeholder {
+    color: var(--text-secondary);
+}
+
+.add-btn {
+    padding: 15px 30px;
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border: none;
+    border-radius: 8px;
+    color: #fff;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.add-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 0 20px var(--color-primary),
+        0 0 30px var(--shadow-primary);
+}
+
+.add-btn:active {
+    transform: translateY(0);
+}
+
+.habits-container {
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
+    border-radius: 12px;
+    padding: 20px;
+    min-height: 200px;
+    box-shadow: 
+        0 0 20px var(--shadow-primary),
+        inset 0 0 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.habit-list {
+    list-style: none;
+}
+
+.habit-item {
+    background: var(--bg-card);
+    border: 2px solid var(--border-secondary);
+    border-radius: 8px;
+    padding: 15px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    transition: all 0.3s ease;
+    animation: slideIn 0.5s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.habit-item:hover {
+    transform: translateX(5px);
+    box-shadow: 
+        0 0 15px var(--color-secondary),
+        0 0 25px var(--shadow-secondary);
+}
+
+.habit-item.completed {
+    opacity: 0.6;
+    border-color: var(--border-completed);
+}
+
+.habit-item.completed .habit-text {
+    text-decoration: line-through;
+    color: var(--text-completed);
+}
+
+.habit-checkbox {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
+    accent-color: var(--color-primary);
+}
+
+.habit-text {
+    flex: 1;
+    font-size: 1.1rem;
+    color: var(--text-primary);
+}
+
+.delete-btn {
+    padding: 8px 16px;
+    background: #ff4444;
+    border: none;
+    border-radius: 6px;
+    color: #fff;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.delete-btn:hover {
+    background: #ff0000;
+    box-shadow: 
+        0 0 10px #ff0000,
+        0 0 20px rgba(255, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.empty-state {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 1.2rem;
+    padding: 40px 20px;
+}
+
+.empty-state::before {
+    content: "👻";
+    display: block;
+    font-size: 4rem;
+    margin-bottom: 10px;
+    animation: float 3s ease-in-out infinite;
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+
+/* Streak Styles */
+.streak {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    background: rgba(255, 140, 0, 0.2);
+    border: 1px solid var(--color-secondary);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: var(--color-secondary);
+    margin-left: auto;
+    margin-right: 10px;
+    transition: all 0.3s ease;
+}
+
+.streak-high {
+    animation: fireGlow 1.5s ease-in-out infinite;
+    background: rgba(255, 69, 0, 0.3);
+    border-color: #ff4500;
+    color: #ff4500;
+    box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+}
+
+@keyframes fireGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        transform: scale(1);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(255, 69, 0, 0.8), 0 0 30px rgba(255, 140, 0, 0.6);
+        transform: scale(1.05);
+    }
+}
+
+.habit-item.completed .streak {
+    opacity: 0.6;
+}
+
+/* Achievements Button */
+.achievements-btn {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px var(--color-primary));
+    animation: trophyBounce 2s ease-in-out infinite;
+}
+
+.achievements-btn:hover {
+    transform: scale(1.2) rotate(10deg);
+}
+
+@keyframes trophyBounce {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* Achievement Popup */
+.achievement-popup {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border: 3px solid #fff;
+    border-radius: 16px;
+    padding: 30px;
+    z-index: 1000;
+    opacity: 0;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 40px var(--shadow-primary), 0 0 60px var(--shadow-secondary);
+    max-width: 400px;
+    text-align: center;
+}
+
+.achievement-popup.show {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+    animation: popupPulse 0.5s ease;
+}
+
+@keyframes popupPulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        transform: translate(-50%, -50%) scale(1.1);
+    }
+}
+
+.achievement-popup-content {
+    color: #fff;
+}
+
+.achievement-icon {
+    font-size: 4rem;
+    margin-bottom: 15px;
+    animation: iconSpin 0.6s ease;
+}
+
+@keyframes iconSpin {
+    from {
+        transform: rotate(0deg) scale(0);
+    }
+    to {
+        transform: rotate(360deg) scale(1);
+    }
+}
+
+.achievement-title {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.achievement-desc {
+    font-size: 1.1rem;
+    opacity: 0.9;
+}
+
+/* Modal */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 999;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(5px);
+}
+
+.modal-content {
+    background: var(--bg-secondary);
+    border: 3px solid var(--border-primary);
+    border-radius: 16px;
+    padding: 30px;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 40px var(--shadow-primary);
+    animation: modalSlideIn 0.3s ease;
+}
+
+@keyframes modalSlideIn {
+    from {
+        transform: translateY(-50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid var(--border-primary);
+    padding-bottom: 15px;
+}
+
+.modal-header h2 {
+    color: var(--text-primary);
+    font-size: 2rem;
+    margin: 0;
+    text-shadow: 0 0 10px var(--color-primary);
+}
+
+.modal-close {
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    line-height: 1;
+}
+
+.modal-close:hover {
+    color: var(--color-secondary);
+    transform: rotate(90deg);
+}
+
+.modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* Achievement Badge */
+.achievement-badge {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    background: var(--bg-card);
+    border: 2px solid var(--border-secondary);
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.achievement-badge.locked {
+    opacity: 0.4;
+    filter: grayscale(100%);
+    border-color: var(--border-completed);
+}
+
+.achievement-badge.unlocked {
+    animation: badgeGlow 2s ease-in-out infinite;
+}
+
+@keyframes badgeGlow {
+    0%, 100% {
+        box-shadow: 0 0 10px var(--shadow-secondary);
+    }
+    50% {
+        box-shadow: 0 0 25px var(--shadow-primary), 0 0 35px var(--shadow-secondary);
+    }
+}
+
+.achievement-badge-icon {
+    font-size: 3rem;
+    min-width: 60px;
+    text-align: center;
+}
+
+.achievement-badge.unlocked .achievement-badge-icon {
+    animation: badgeIconFloat 3s ease-in-out infinite;
+}
+
+@keyframes badgeIconFloat {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(5deg);
+    }
+}
+
+.achievement-badge-info {
+    flex: 1;
+}
+
+.achievement-badge-name {
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: var(--text-primary);
+    margin-bottom: 5px;
+}
+
+.achievement-badge-desc {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+}
+
+/* Sound Toggle Button */
+.sound-toggle {
+    position: fixed;
+    top: 80px;
+    left: 20px;
+    background: transparent;
+    border: none;
+    font-size: 2.5rem;
+    cursor: pointer;
+    z-index: 100;
+    transition: all 0.3s ease;
+    filter: drop-shadow(0 0 10px var(--color-secondary));
+}
+
+.sound-toggle:hover {
+    transform: scale(1.2);
+    filter: drop-shadow(0 0 20px var(--color-secondary));
+}
+
+.sound-toggle:active {
+    transform: scale(0.9);
+}
+
+/* Category Dropdown */
+.habit-category {
+    padding: 15px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
+    border-radius: 8px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    min-width: 180px;
+}
+
+.habit-category:focus {
+    border-color: var(--border-secondary);
+    box-shadow: 
+        0 0 10px var(--color-secondary),
+        0 0 20px var(--shadow-secondary);
+}
+
+.habit-category option {
+    background: var(--bg-secondary);
+    color: var(--text-primary);
+}
+
+/* Filter Container */
+.filter-container {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.filter-btn {
+    padding: 10px 20px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border-primary);
+    border-radius: 20px;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    transform: translateY(-2px);
+    border-color: var(--border-secondary);
+    box-shadow: 0 0 15px var(--shadow-secondary);
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-color: var(--color-secondary);
+    color: #fff;
+    box-shadow: 
+        0 0 20px var(--shadow-primary),
+        0 0 30px var(--shadow-secondary);
+    animation: filterGlow 2s ease-in-out infinite;
+}
+
+@keyframes filterGlow {
+    0%, 100% {
+        box-shadow: 
+            0 0 20px var(--shadow-primary),
+            0 0 30px var(--shadow-secondary);
+    }
+    50% {
+        box-shadow: 
+            0 0 30px var(--shadow-primary),
+            0 0 40px var(--shadow-secondary),
+            0 0 50px var(--shadow-secondary);
+    }
+}
+
+/* Category Badge in Habit Item */
+.habit-category-badge {
+    font-size: 1.2rem;
+    margin-right: 5px;
+}
+
+/* Update habit form to accommodate category dropdown */
+.habit-form {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.habit-form input[type="text"] {
+    flex: 1;
+    min-width: 200px;
+}

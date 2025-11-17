@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>👻 Haunted Habit Tracker</title>
+    <link rel="stylesheet" href="theme.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="animations.css">
+</head>
+<body>
+    <!-- Fog layers -->
+    <div class="fog-container">
+        <div class="fog fog-layer-1"></div>
+        <div class="fog fog-layer-2"></div>
+        <div class="fog fog-layer-3"></div>
+    </div>
+
+    <!-- Floating ghosts -->
+    <div class="ghost">👻</div>
+    <div class="ghost">👻</div>
+    <div class="ghost">👻</div>
+    <div class="ghost">👻</div>
+    <div class="ghost">👻</div>
+
+    <!-- Pumpkins -->
+    <div class="pumpkin">🎃</div>
+    <div class="pumpkin">🎃</div>
+
+    <!-- Flying bats -->
+    <div class="bat">🦇</div>
+    <div class="bat">🦇</div>
+    <div class="bat">🦇</div>
+
+    <!-- Sparkles -->
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+    <div class="sparkle"></div>
+
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">🎃</button>
+
+    <!-- Achievements Button -->
+    <button class="achievements-btn" id="achievementsBtn" aria-label="View achievements">🏆</button>
+
+    <!-- Sound Toggle Button -->
+    <button class="sound-toggle" id="soundToggle" aria-label="Toggle sound">🔊</button>
+
+    <!-- Achievement Unlock Popup -->
+    <div class="achievement-popup" id="achievementPopup">
+        <div class="achievement-popup-content">
+            <div class="achievement-icon" id="achievementIcon"></div>
+            <div class="achievement-title" id="achievementTitle"></div>
+            <div class="achievement-desc" id="achievementDesc"></div>
+        </div>
+    </div>
+
+    <!-- Achievements Modal -->
+    <div class="modal" id="achievementsModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>🏆 Achievements 🏆</h2>
+                <button class="modal-close" id="modalClose">&times;</button>
+            </div>
+            <div class="modal-body" id="achievementsList"></div>
+        </div>
+    </div>
+
+    <div class="container"></div>
+        <h1 class="title">👻 Haunted Habit Tracker 🎃</h1>
+        
+        <form id="habitForm" class="habit-form">
+            <input 
+                type="text" 
+                id="habitInput" 
+                placeholder="Enter a spooky habit..." 
+                required
+            >
+            <select id="habitCategory" class="habit-category" required>
+                <option value="">Select category...</option>
+                <option value="Study">📚 Study</option>
+                <option value="Fitness">💪 Fitness</option>
+                <option value="Self-Care">🧘 Self-Care</option>
+                <option value="Health">❤️ Health</option>
+                <option value="Productivity">⚡ Productivity</option>
+            </select>
+            <button type="submit" class="add-btn">Add Habit</button>
+        </form>
+
+        <!-- Category Filters -->
+        <div class="filter-container">
+            <button class="filter-btn active" data-category="All">All</button>
+            <button class="filter-btn" data-category="Study">📚 Study</button>
+            <button class="filter-btn" data-category="Fitness">💪 Fitness</button>
+            <button class="filter-btn" data-category="Self-Care">🧘 Self-Care</button>
+            <button class="filter-btn" data-category="Health">❤️ Health</button>
+            <button class="filter-btn" data-category="Productivity">⚡ Productivity</button>
+        </div>
+
+        <div class="habits-container"></div>
+            <ul id="habitList" class="habit-list"></ul>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
