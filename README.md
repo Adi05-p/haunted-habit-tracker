@@ -139,8 +139,5 @@ index.html
 
 No installation required.
 
-
-
-(To be added)
-
 🎃 Happy Haunting & Habit Building! 👻🔥
+
